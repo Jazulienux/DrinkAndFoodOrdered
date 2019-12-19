@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         loadFragment(new HomeFragments());
 
         Intent i = getIntent();
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().addToBackStack(null);
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         String gTitleMain = i.getStringExtra("iTitle");
         int status = i.getIntExtra("status",0);
         int gtImg = i.getIntExtra("image",0);
