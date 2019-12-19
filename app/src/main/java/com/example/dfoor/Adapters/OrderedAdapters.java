@@ -4,12 +4,17 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dfoor.Models.OrderedItem;
 import com.example.dfoor.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -21,6 +26,8 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
     List<OrderedItem> listOrderedItems;
     LayoutInflater layoutInflater;
     Context c;
+
+    DatabaseReference database;
 
     public OrderedAdapters(Context c , List<OrderedItem> data) {
         this.c = c;
@@ -45,6 +52,23 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
         holder.hargaOrder.setText(String.valueOf(getDataModelsOrder.getHarga()));
         holder.textOrder.setText(String.valueOf(getDataModelsOrder.getJumlahPesanan()));
         holder.totalOrderHarga.setText(String.valueOf(getDataModelsOrder.getTotalOrder()));
+
+        final String id = getDataModelsOrder.getKey();
+        Toast.makeText(c,id,Toast.LENGTH_SHORT).show();
+
+        holder.btnCancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database = FirebaseDatabase.getInstance().getReference();
+
+                database.child("Ordered").child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -56,6 +80,7 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
         public TextView titleOrder , descOrder , hargaOrder ,totalOrderHarga;
         public ImageView imgOrder;
         public EditText textOrder;
+        public Button btnCancelOrder;
 
         public MyOrderedHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +91,7 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
             hargaOrder = itemView.findViewById(R.id.hargaOrdered);
             textOrder = itemView.findViewById(R.id.textOrdered);
             totalOrderHarga = itemView.findViewById(R.id.totalOrderProc);
+            btnCancelOrder = itemView.findViewById(R.id.btnDelOrder);
         }
     }
 }

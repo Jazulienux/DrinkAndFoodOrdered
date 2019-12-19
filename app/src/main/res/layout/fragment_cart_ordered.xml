@@ -72,6 +72,7 @@
                 android:id="@+id/btnProcOrdered"
                 android:layout_below="@id/sumTotal"
                 android:paddingTop="10dp"
+                android:textStyle="bold"
                 android:text="Process Ordered">
             </Button>
 
