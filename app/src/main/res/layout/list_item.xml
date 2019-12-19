@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#ECF0F1"
+        app:cardCornerRadius="9dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:id="@+id/imageItem"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleItem"
+                android:text="Title"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/imageItem"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/imageItem"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descriptinon"
+                android:id="@+id/descItem"
+                android:textSize="15sp"
+                android:layout_toRightOf="@id/imageItem"
+                android:layout_toEndOf="@id/imageItem"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/titleItem"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp."
+                android:id="@+id/rp"
+                android:textSize="15sp"
+                android:layout_toRightOf="@id/imageItem"
+                android:layout_toEndOf="@id/imageItem"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/descItem"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descriptinon"
+                android:id="@+id/ratingItem"
+                android:textSize="15sp"
+                android:layout_toRightOf="@id/rp"
+                android:layout_toEndOf="@id/rp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/descItem"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
