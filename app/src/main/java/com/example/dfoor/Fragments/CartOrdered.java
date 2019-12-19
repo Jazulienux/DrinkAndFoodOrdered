@@ -65,10 +65,11 @@ public class CartOrdered extends Fragment {
                         or.setKey(ds.getKey());
                         orderedItemsList.add(or);
                     }
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    orderedAdapters = new OrderedAdapters(getActivity(),orderedItemsList);
-                    recyclerView.setAdapter(orderedAdapters);
                 }
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                orderedAdapters = new OrderedAdapters(getActivity(),orderedItemsList);
+                recyclerView.setAdapter(orderedAdapters);
             }
 
             @Override
