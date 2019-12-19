@@ -26,4 +26,13 @@
         app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dot_light_screen1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
