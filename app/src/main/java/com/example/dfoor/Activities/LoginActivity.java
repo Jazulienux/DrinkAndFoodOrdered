@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, code);
 
             signInWithPhoneAuthCredential(credential);
+
         }
     }
 
@@ -117,6 +118,8 @@ public class LoginActivity extends AppCompatActivity {
             super.onCodeSent(s, forceResendingToken);
 
             codeSent = s;
+            Toast.makeText(LoginActivity.this,"Number Is Correct",Toast.LENGTH_SHORT).show();
+
         }
     };
 

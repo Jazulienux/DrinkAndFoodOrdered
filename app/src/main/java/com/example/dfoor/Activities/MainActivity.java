@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -24,14 +25,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private DatabaseReference database;
+    private  DatabaseReference database;
     private ProgressDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadFragment(new HomeFragments());
 
         Intent i = getIntent();
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -42,22 +42,30 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         int gtHarga = i.getIntExtra("harga",0);
         String gDesc = i.getStringExtra("desc");
 
-        Toast.makeText(MainActivity.this,String.valueOf(status),Toast.LENGTH_SHORT).show();
 
-        database = FirebaseDatabase.getInstance().getReference();
+        loadFragment(new HomeFragments());
 
-        if (gTitleMain == null && status == 0) {
-            fragmentTransaction.replace(R.id.changeFrame, new HomeFragments());
-            fragmentTransaction.commit();
+        loadFragment(new HomeFragments());
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        // beri listener pada saat item/menu bottomnavigation terpilih
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+
+
+
+        try {
+            database = FirebaseDatabase.getInstance().getReference();
         }
-        else if(status == 1)
+        catch (Exception e){
+            System.out.println(e);
+        }
+
+        if(status == 1)
         {
-            fragmentTransaction.replace(R.id.changeFrame,new ItemFragments());
-            fragmentTransaction.commit();
+            loadFragment(new ItemFragments());
         }
         else if(status == 2){
-            fragmentTransaction.replace(R.id.changeFrame,new GetDataFragments());
-            fragmentTransaction.commit();
+            loadFragment(new GetDataFragments());
         }
         else if(status == 3){
 
@@ -65,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             if(gtJumlah != 0){
                 total = gtHarga * gtJumlah;
             }
+
 
             OrderedItem orderedItem = new OrderedItem(gTitleMain,gDesc,gtHarga,gtJumlah,gtImg,total);
 
@@ -79,8 +88,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     loading.dismiss();
 
                     Toast.makeText(MainActivity.this,"Success Save To Firebase",Toast.LENGTH_SHORT).show();
-                    fragmentTransaction.replace(R.id.changeFrame,new CartOrdered());
-                    fragmentTransaction.commit();
+                    loadFragment(new CartOrdered());
 
                 }
             });
@@ -106,6 +114,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.home:
                 fragment = new HomeFragments();
                 break;
+            case R.id.cart:
+                fragment = new CartOrdered();
+                break;
+            case R.id.invoice:
+                break;
+
+            case R.id.logout:
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+                break;
+
+
         }
         return loadFragment(fragment);
     }

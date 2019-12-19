@@ -54,12 +54,12 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
         holder.totalOrderHarga.setText(String.valueOf(getDataModelsOrder.getTotalOrder()));
 
         final String id = getDataModelsOrder.getKey();
-        Toast.makeText(c,id,Toast.LENGTH_SHORT).show();
+
+        database = FirebaseDatabase.getInstance().getReference();
 
         holder.btnCancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database = FirebaseDatabase.getInstance().getReference();
 
                 database.child("Ordered").child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -67,6 +67,20 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
 
                     }
                 });
+            }
+        });
+
+        holder.btnPlusOr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(c,"+",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.btnMinusOr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(c,"-",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -80,7 +94,7 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
         public TextView titleOrder , descOrder , hargaOrder ,totalOrderHarga;
         public ImageView imgOrder;
         public EditText textOrder;
-        public Button btnCancelOrder;
+        public Button btnCancelOrder, btnMinusOr, btnPlusOr;
 
         public MyOrderedHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +106,8 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
             textOrder = itemView.findViewById(R.id.textOrdered);
             totalOrderHarga = itemView.findViewById(R.id.totalOrderProc);
             btnCancelOrder = itemView.findViewById(R.id.btnDelOrder);
+            btnMinusOr = itemView.findViewById(R.id.btnMinusOrdered);
+            btnPlusOr = itemView.findViewById(R.id.btnPlusOrdered);
         }
     }
 }
