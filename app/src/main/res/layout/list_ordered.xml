@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="9dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:id="@+id/imageOrdered"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleOrdered"
+                android:text="Title"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/imageOrdered"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/imageOrdered"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/descOrdered"
+                android:text="Description"
+                android:textSize="15sp"
+                android:layout_toRightOf="@id/imageOrdered"
+                android:layout_toEndOf="@id/imageOrdered"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/titleOrdered"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp. "
+                android:id="@+id/rpOrdered"
+                android:textSize="15sp"
+                android:layout_toRightOf="@id/imageOrdered"
+                android:layout_toEndOf="@id/imageOrdered"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/descOrdered"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HargaPerItem"
+                android:id="@+id/hargaOrdered"
+                android:textSize="15sp"
+                android:layout_toRightOf="@id/rpOrdered"
+                android:layout_toEndOf="@id/rpOrdered"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/descOrdered"/>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="55dp"
+            android:layout_width="370dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#5D6D7E"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <Button
+                    android:layout_width="80dp"
+                    android:id="@+id/btnPlusOrdered"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/btnMinusOrdered"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="+"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+                <Button
+                    android:layout_width="80dp"
+                    android:id="@+id/btnMinusOrdered"
+                    android:layout_toRightOf="@id/textOrdered"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/detailOrdered"
+                    android:textColor="#FFFFFF"
+                    android:text="Order    : "
+                    android:textSize="20sp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="16dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <EditText
+                    android:layout_width="50dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:id="@+id/textOrdered"
+                    android:background="@null"
+                    android:layout_toRightOf="@id/detailOrdered"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content">
+                </EditText>
+
+                <TextView
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/setTotal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textOrdered"
+                    android:text="Total     :"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/setRp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textOrdered"
+                    android:layout_toRightOf="@id/setTotal"
+                    android:text="Rp. "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+
+                <TextView
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/totalOrderProc"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textOrdered"
+                    android:layout_toRightOf="@id/setRp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
