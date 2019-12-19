@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "526889545601",
+    "firebase_url": "https://dfoorapps.firebaseio.com",
+    "project_id": "dfoorapps",
+    "storage_bucket": "dfoorapps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526889545601:android:d5cddc4dcb55c785784280",
+        "android_client_info": {
+          "package_name": "com.example.dfoor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526889545601-793tk5ql6pd8n29moobjm22lup9v9mk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dfoor",
+            "certificate_hash": "ce9f0782bd0df687a6ad310e0c5347a1e2557d80"
+          }
+        },
+        {
+          "client_id": "526889545601-rlhip0ktlj5uaqgfk7re320qsrgbi13r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBweZo6E0NAUH5RqMsGJS07K5aOYqZOjLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526889545601-rlhip0ktlj5uaqgfk7re320qsrgbi13r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
