@@ -106,6 +106,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.home:
                 fragment = new HomeFragments();
                 break;
+            case R.id.order:
+                fragment = new CartOrdered();
+                break;
+            case R.id.nota:
+                fragment = new ItemFragments();
+                break;
         }
         return loadFragment(fragment);
     }
