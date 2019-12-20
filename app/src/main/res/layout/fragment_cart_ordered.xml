@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.77" />
+        app:layout_constraintGuide_percent="0.86" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -22,8 +22,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProcessOrdered"
-        android:layout_width="390dp"
-        android:layout_height="534dp"
+        android:layout_width="383dp"
+        android:layout_height="577dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,43 +38,35 @@
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvProcessOrdered">
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.91">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/sumTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total    :   Rp.   "
-                android:textSize="17sp"
-                android:paddingBottom="10dp"
-                android:textColor="#000000"
-                android:textStyle="bold"></TextView>
-
 
             <TextView
                 android:id="@+id/totalAllOrdered"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#000000"
+                android:layout_marginLeft="0dp"
                 android:layout_toRightOf="@id/sumTotal"
+                android:textColor="#000000"
+                android:textSize="17sp"
                 android:textStyle="bold"></TextView>
 
-            <Button
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/sumTotal"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnProcOrdered"
-                android:layout_below="@id/sumTotal"
-                android:paddingTop="10dp"
-                android:textStyle="bold"
-                android:text="Process Ordered">
-            </Button>
+                android:text="Total    :   Rp.   "
+                android:textColor="#000000"
+                android:textSize="17sp"
+                android:textStyle="bold"></TextView>
 
         </RelativeLayout>
 

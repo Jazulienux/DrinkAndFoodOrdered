@@ -2,6 +2,7 @@ package com.example.dfoor.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dfoor.Activities.MainActivity;
+import com.example.dfoor.Fragments.CartOrdered;
 import com.example.dfoor.Models.GetDataModels;
 import com.example.dfoor.R;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class GetDataAdapters extends RecyclerView.Adapter<GetDataAdapters.GetDataHolder> {
@@ -25,6 +29,7 @@ public class GetDataAdapters extends RecyclerView.Adapter<GetDataAdapters.GetDat
     LayoutInflater layoutInflater;
     public List<GetDataModels> data;
     Context c;
+    View view;
 
     private int orderDef = 0;
 
@@ -38,7 +43,7 @@ public class GetDataAdapters extends RecyclerView.Adapter<GetDataAdapters.GetDat
     @NonNull
     @Override
     public GetDataAdapters.GetDataHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.list_getdata,parent,false);
+        view = layoutInflater.inflate(R.layout.list_getdata,parent,false);
         return new GetDataHolder(view);
     }
 

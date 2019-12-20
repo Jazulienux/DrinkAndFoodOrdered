@@ -55,7 +55,7 @@ public class ItemFragments extends Fragment {
     public void viewItemQuery(String titleQuery) {
         itemModels = new ItemModels();
         if(titleQuery.equals("Coffee")){
-            itemModels = new ItemModels("Tea Pull","Tea Pull New Varian",R.drawable.tea_tarik,200000);
+            itemModels = new ItemModels("Tea Pull","Tea Pull New Varian",R.drawable.tea_tarik,20000);
             dataItem.add(itemModels);
 
             itemModels = new ItemModels("Coffee Gayo","Cofee Gayoo New Varian",R.drawable.coffee_gayo,10000);

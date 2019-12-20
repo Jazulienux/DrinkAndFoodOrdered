@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -20,8 +19,11 @@ import com.example.dfoor.Models.OrderedItem;
 import com.example.dfoor.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         Intent i = getIntent();
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        String gTitleMain = i.getStringExtra("iTitle");
+        final String gTitleMain = i.getStringExtra("iTitle");
         int status = i.getIntExtra("status",0);
         int gtImg = i.getIntExtra("image",0);
         int gtJumlah = i.getIntExtra("jumlah",0);
@@ -45,13 +47,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         loadFragment(new HomeFragments());
 
-        loadFragment(new HomeFragments());
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         // beri listener pada saat item/menu bottomnavigation terpilih
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-
-
-
 
         try {
             database = FirebaseDatabase.getInstance().getReference();
@@ -75,24 +73,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
 
 
-            OrderedItem orderedItem = new OrderedItem(gTitleMain,gDesc,gtHarga,gtJumlah,gtImg,total);
+            final OrderedItem orderedItem = new OrderedItem(gTitleMain,gDesc,gtHarga,gtJumlah,gtImg,total);
 
-            loading = ProgressDialog.show(MainActivity.this,null,"Waiting ....",
-                    true,false);
-
-            database.child("Ordered")
-                    .push().
-                    setValue(orderedItem).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+            database.child("Ordered").orderByChild("title").equalTo(gTitleMain).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onSuccess(Void aVoid) {
-                    loading.dismiss();
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        Toast.makeText(MainActivity.this,"Update Data Order Pada Keranjang Order Pesanan",Toast.LENGTH_SHORT).show();
+                        loadFragment(new HomeFragments());
+                    }
+                    else{
+                        database.child("Ordered").push().setValue(orderedItem).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                loading = ProgressDialog.show(MainActivity.this,null,"Waiting ....",
+                                        true,false);
+                                loading.dismiss();
+                                Toast.makeText(MainActivity.this,"Success Save To Firebase",Toast.LENGTH_SHORT).show();
+                                loadFragment(new CartOrdered());
 
-                    Toast.makeText(MainActivity.this,"Success Save To Firebase",Toast.LENGTH_SHORT).show();
-                    loadFragment(new CartOrdered());
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
-
         }
     }
 
@@ -116,8 +125,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.cart:
                 fragment = new CartOrdered();
-                break;
-            case R.id.invoice:
                 break;
 
             case R.id.logout:

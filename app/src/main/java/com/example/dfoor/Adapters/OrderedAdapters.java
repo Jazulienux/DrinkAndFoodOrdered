@@ -1,6 +1,7 @@
 package com.example.dfoor.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,11 @@ import android.widget.Toast;
 import com.example.dfoor.Models.OrderedItem;
 import com.example.dfoor.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -26,6 +30,8 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
     List<OrderedItem> listOrderedItems;
     LayoutInflater layoutInflater;
     Context c;
+
+    int orderDef = 0;
 
     DatabaseReference database;
 
@@ -43,8 +49,9 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderedAdapters.MyOrderedHolder holder, int position) {
-        OrderedItem getDataModelsOrder = listOrderedItems.get(position);
+    public void onBindViewHolder(@NonNull final OrderedAdapters.MyOrderedHolder holder, int position) {
+        final OrderedItem getDataModelsOrder = listOrderedItems.get(position);
+        final int sum = 0;
 
         holder.titleOrder.setText(getDataModelsOrder.getTitle());
         holder.imgOrder.setImageResource(getDataModelsOrder.getImage());
@@ -57,6 +64,7 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
 
         database = FirebaseDatabase.getInstance().getReference();
 
+
         holder.btnCancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +72,7 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
                 database.child("Ordered").child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
+                        Toast.makeText(c,"Order Canceled",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -73,16 +81,68 @@ public class OrderedAdapters extends RecyclerView.Adapter<OrderedAdapters.MyOrde
         holder.btnPlusOr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(c,"+",Toast.LENGTH_SHORT).show();
+
+                orderDef = getDataModelsOrder.getJumlahPesanan();
+                orderDef++;
+
+                if(orderDef != 0 ){
+                    int sum = getDataModelsOrder.getHarga() * orderDef;
+                    holder.totalOrderHarga.setText(String.valueOf(sum));
+                    OrderedItem or = new OrderedItem(getDataModelsOrder.getTitle(),getDataModelsOrder.getDesc(),getDataModelsOrder.getHarga(),orderDef,getDataModelsOrder.getImage(),sum);
+
+                    database.child("Ordered").child(id).setValue(or).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(c,"Update Success",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    database.child("Ordered").child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(c,"Order Canceled",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
 
         holder.btnMinusOr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(c,"-",Toast.LENGTH_SHORT).show();
+                orderDef = getDataModelsOrder.getJumlahPesanan();
+                if(orderDef <= 0){
+                    orderDef = 0;
+                }
+                else{
+                    orderDef--;
+                }
+
+                if(orderDef != 0 ){
+                    int sum = getDataModelsOrder.getHarga() * orderDef;
+                    holder.totalOrderHarga.setText(String.valueOf(sum));
+                    OrderedItem or = new OrderedItem(getDataModelsOrder.getTitle(),getDataModelsOrder.getDesc(),getDataModelsOrder.getHarga(),orderDef,getDataModelsOrder.getImage(),sum);
+
+                    database.child("Ordered").child(id).setValue(or).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(c,"Update Success",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else{
+                    database.child("Ordered").child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(c,"Order Canceled",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
+
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.dfoor.Fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.dfoor.Adapters.OrderedAdapters;
 import com.example.dfoor.Models.OrderedItem;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CartOrdered extends Fragment {
+public class CartOrdered extends Fragment{
 
 
     RecyclerView recyclerView;
@@ -39,6 +40,7 @@ public class CartOrdered extends Fragment {
     List<OrderedItem> orderedItemsList;
     private DatabaseReference database;
     private ProgressDialog loading;
+    private TextView tot;
 
     public CartOrdered() {
         // Required empty public constructor
@@ -51,20 +53,34 @@ public class CartOrdered extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cart_ordered, container, false);
 
+        tot = view.findViewById(R.id.totalAllOrdered);
+
         database = FirebaseDatabase.getInstance().getReference();
         recyclerView = view.findViewById(R.id.rvProcessOrdered);
 
+        Intent i = getActivity().getIntent();
+        final String title = i.getStringExtra("iTitle");
 
         database.child("Ordered").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int sumTotal = 0;
+                int i = 0;
                 orderedItemsList = new ArrayList<>();
                 if(dataSnapshot.exists()){
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         OrderedItem or = ds.getValue(OrderedItem.class);
                         or.setKey(ds.getKey());
                         orderedItemsList.add(or);
+                        sumTotal = sumTotal + orderedItemsList.get(i).getTotalOrder();
+                        i++;
                     }
+                }
+                if(sumTotal == 0){
+                    tot.setText(String.valueOf(0));
+                }
+                else{
+                    tot.setText(String.valueOf(sumTotal));
                 }
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -80,7 +96,4 @@ public class CartOrdered extends Fragment {
 
         return view;
     }
-
-
-
 }
